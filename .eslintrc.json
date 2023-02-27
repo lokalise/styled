@@ -1,0 +1,12 @@
+{
+  "settings": {
+    "jest": {
+      "version": ">= 27"
+    }
+  },
+  "extends": [
+    "@lokalise/lokalise-frontend/core",
+    "@lokalise/lokalise-frontend/jest",
+    "@lokalise/lokalise-frontend/typescript"
+  ]
+}
