@@ -1,10 +1,12 @@
 {
-  "name": "@lokalise/your-project-name",
-  "version": "1.0.0",
+  "name": "@lokalise/styled",
+  "version": "0.1.0",
   "scripts": {
     "build": "vite build",
-    "lint": "eslint --cache . --ext .js,.cjs,.ts",
-    "lint:fix": "npm run lint -- --fix",
+    "lint:eslint": "eslint --cache . --ext .js,.cjs,.ts",
+    "lint:ts": "tsc --noEmit",
+    "lint": "npm run lint:eslint; npm run lint:ts",
+    "lint:fix": "npm run lint:eslint -- --fix",
     "test": "vitest run",
     "prepare": "husky install",
     "commit": "commit"
@@ -13,12 +15,12 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/your-project-name.umd.cjs",
-  "module": "./dist/your-project-name.js",
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
   "exports": {
     ".": {
-      "import": "./dist/your-project-name.js",
-      "require": "./dist/your-project-name.umd.cjs"
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
     }
   },
   "devDependencies": {
@@ -37,7 +39,8 @@
     "husky": "8.0.3",
     "prettier": "2.8.4",
     "semantic-release": "20.1.0",
+    "typescript": "~4.9.5",
     "vite": "4.1.4",
-    "vitest": "0.28.5"
+    "vitest": "0.29.1"
   }
 }
