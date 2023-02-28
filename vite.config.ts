@@ -1,15 +1,21 @@
 import { resolve } from "path";
 import { defineConfig } from "vitest/config";
+import dts from "vite-plugin-dts";
 
 export default defineConfig({
 	build: {
 		lib: {
-			entry: resolve(__dirname, "src/index.ts"),
+			entry: {
+				index: resolve(__dirname, "src/index.ts"),
+			},
 			name: "styled",
-			fileName: "index",
+		},
+		commonjsOptions: {
+			esmExternals: true,
 		},
 	},
 	test: {
 		globals: true,
 	},
+	plugins: [dts()],
 });
