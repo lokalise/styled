@@ -15,29 +15,39 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/index.umd.cjs",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "exports": {
     ".": {
       "import": "./dist/index.js",
-      "require": "./dist/index.umd.cjs"
+      "require": "./dist/index.cjs"
+    },
+    "./*": {
+      "import": "./dist/*.js",
+      "require": "./dist/*.cjs"
     }
+  },
+  "types": "./dist/index.d.ts",
+  "dependencies": {
+    "@types/lodash-es": "^4.17.6",
+    "@types/styled-components": "^5.1.26",
+    "jest-styled-components": "^7.1.1",
+    "lodash-es": "^4.17.21",
+    "styled-components": "^5.3.6"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
     "@commitlint/prompt-cli": "^17.4.4",
-    "@lokalise/eslint-config-lokalise-frontend": "^0.3.1",
+    "@lokalise/eslint-config-frontend": "^1.0.2",
     "@semantic-release/changelog": "^6.0.2",
     "@semantic-release/commit-analyzer": "^9.0.2",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^8.0.7",
     "@semantic-release/npm": "^9.0.2",
     "@semantic-release/release-notes-generator": "^10.0.3",
-    "eslint-config-prettier": "^8.6.0",
-    "eslint-plugin-prettier": "^4.2.1",
+    "expect-type": "^0.15.0",
     "husky": "^8.0.3",
-    "prettier": "^2.8.4",
     "semantic-release": "^20.1.1",
     "typescript": "~4.9.5",
     "vite": "^4.1.4",
