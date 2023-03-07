@@ -27,6 +27,9 @@
       "require": "./dist/*.cjs"
     }
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@types/lodash-es": "^4.17.6",
