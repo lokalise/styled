@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/lokalise/styled/compare/v1.0.0...v1.0.1) (2023-03-07)
+
+
+### Bug Fixes
+
+* mark package as public ([823ed47](https://github.com/lokalise/styled/commit/823ed47b847711f1fb7c6d1811cff176a010d96a))
+
 ## 1.0.0 (2023-03-07)
 
 
