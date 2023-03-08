@@ -72,7 +72,15 @@ type Helpers<
 				) => (props: { theme: Theme }) => string;
 			};
 	  }
-	: Record<string, never>);
+	: Record<string, never>) & {
+		value: <Path extends ScalarPaths<Theme>>(
+			path: Path,
+		) => (props: {
+			theme: Theme;
+			// The `Path extends string` is a trick to force compiler to defer execution of the condition.
+			// Otherwise, we get infinite depth issue.
+		}) => Path extends string ? ObjectPathValue<Theme, Path> : never;
+	};
 
 const constructMediaQuery = <
 	BreakpointsKey extends string,
@@ -150,5 +158,13 @@ export const generateHelpers = <
 							// eslint-disable-next-line @typescript-eslint/no-explicit-any -- a bit too hard to type this
 					  ] as any)
 					: [],
-			),
+			)
+			.concat([
+				[
+					"value",
+					(path: string) =>
+						({ theme }: { theme: Theme }) =>
+							get(theme, path),
+				],
+			]),
 	) as Helpers<Theme, SpacingKey, BreakpointsKey, ObjectKeys>;
