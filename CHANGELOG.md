@@ -1,3 +1,10 @@
+## [1.2.0](https://github.com/lokalise/styled/compare/v1.1.0...v1.2.0) (2023-03-08)
+
+
+### Features
+
+* new helper – value ([5e64ee0](https://github.com/lokalise/styled/commit/5e64ee02c19509962848cce8f07c414f65691187))
+
 ## [1.1.0](https://github.com/lokalise/styled/compare/v1.0.1...v1.1.0) (2023-03-08)
 
 
