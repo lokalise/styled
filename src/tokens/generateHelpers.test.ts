@@ -39,6 +39,7 @@ describe("generateHelpers", () => {
 			"spacing",
 			"typography",
 			"transitionTime",
+			"value",
 		]);
 	});
 
@@ -114,5 +115,14 @@ describe("generateHelpers", () => {
 			// @ts-expect-error -- should error on non-existent breakpoint
 			mediaQuery.max("does not exist")({ theme: themeWithBreakpoints }),
 		).toBe("@media (max-width: undefined)");
+	});
+
+	it("should generate value helper for any scalar value", () => {
+		const { value } = generateHelpers(theme);
+
+		expect(value("typography.heading.lineHeight")({ theme })).toBe("14px");
+
+		// @ts-expect-error -- should complain about invalid paths
+		expect(value("invalid.path")({ theme })).toBeUndefined();
 	});
 });
