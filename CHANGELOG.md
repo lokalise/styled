@@ -1,3 +1,10 @@
+## [1.1.0](https://github.com/lokalise/styled/compare/v1.0.1...v1.1.0) (2023-03-08)
+
+
+### Features
+
+* add `valueFromProp` and media query helper ([3d42778](https://github.com/lokalise/styled/commit/3d42778695ca38e06e7bbb04d5ccd8a1d73d7eb0))
+
 ## [1.0.1](https://github.com/lokalise/styled/compare/v1.0.0...v1.0.1) (2023-03-07)
 
 
