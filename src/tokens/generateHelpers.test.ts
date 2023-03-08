@@ -25,6 +25,11 @@ const theme = {
 	transitionTime: "1s",
 };
 
+const themeWithBreakpoints = {
+	...theme,
+	breakpoints: { sm: "400px", md: "700px" },
+};
+
 describe("generateHelpers", () => {
 	it("should create an object matching", () => {
 		const helpers = generateHelpers(theme);
@@ -86,5 +91,28 @@ describe("generateHelpers", () => {
 		const { transitionTime } = generateHelpers(theme);
 
 		expect(transitionTime()({ theme })).toBe("1s");
+	});
+
+	it("should generate breakpoint helper", () => {
+		const { breakpoints } = generateHelpers(themeWithBreakpoints);
+
+		expect(breakpoints("sm")({ theme: themeWithBreakpoints })).toBe("400px");
+	});
+
+	it("should generate mediaQuery helper", () => {
+		const { mediaQuery } = generateHelpers(themeWithBreakpoints);
+
+		expect(mediaQuery.min("sm")({ theme: themeWithBreakpoints })).toBe(
+			"@media (min-width: 400px)",
+		);
+
+		expect(mediaQuery.max("md")({ theme: themeWithBreakpoints })).toBe(
+			"@media (max-width: 700px)",
+		);
+
+		expect(
+			// @ts-expect-error -- should error on non-existent breakpoint
+			mediaQuery.max("does not exist")({ theme: themeWithBreakpoints }),
+		).toBe("@media (max-width: undefined)");
 	});
 });

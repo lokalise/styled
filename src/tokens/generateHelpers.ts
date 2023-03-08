@@ -8,6 +8,7 @@ import {
 type Config<
 	Theme extends Record<string | number, unknown>,
 	SpacingKey extends keyof Theme,
+	BreakpointsKey extends keyof Theme,
 	ObjectKeys extends keyof Theme,
 > = {
 	/**
@@ -21,6 +22,7 @@ type Config<
 	 * ```
 	 */
 	spacingName?: SpacingKey;
+	breakpointsName?: BreakpointsKey;
 	/**
 	 * List of keys that return object, instead of scalar value (for things like
 	 * typography). This only affects typings, not output.
@@ -37,6 +39,7 @@ type SpacingArgs<Arg> =
 type Helpers<
 	Theme extends Record<string | number, unknown>,
 	SpacingKey extends keyof Theme,
+	BreakpointsKey extends string,
 	ObjectKeys extends keyof Theme,
 > = {
 	[K in keyof Theme]: K extends SpacingKey
@@ -58,6 +61,35 @@ type Helpers<
 					// Otherwise, we get infinite depth issue.
 			  }) => Path extends string ? ObjectPathValue<Theme[K], Path> : never
 		: () => (props: { theme: Theme }) => Theme[K];
+} & (BreakpointsKey extends keyof Theme
+	? {
+			mediaQuery: {
+				min: (
+					size: keyof Theme[BreakpointsKey],
+				) => (props: { theme: Theme }) => string;
+				max: (
+					size: keyof Theme[BreakpointsKey],
+				) => (props: { theme: Theme }) => string;
+			};
+	  }
+	: Record<string, never>);
+
+const constructMediaQuery = <
+	BreakpointsKey extends string,
+	Theme extends Record<BreakpointsKey, Record<string, string>>,
+>(
+	breakpointsName: BreakpointsKey,
+) => {
+	return {
+		min:
+			<Size extends keyof Theme[BreakpointsKey]>(size: Size) =>
+			({ theme }: { theme: Record<BreakpointsKey, Record<Size, string>> }) =>
+				`@media (min-width: ${theme[breakpointsName][size]})`,
+		max:
+			<Size extends keyof Theme[BreakpointsKey]>(size: Size) =>
+			({ theme }: { theme: Record<BreakpointsKey, Record<Size, string>> }) =>
+				`@media (max-width: ${theme[breakpointsName][size]})`,
+	};
 };
 
 /**
@@ -81,24 +113,42 @@ type Helpers<
 export const generateHelpers = <
 	Theme extends Record<string | number, unknown>,
 	SpacingKey extends keyof Theme = "spacing",
+	BreakpointsKey extends string = "breakpoints",
 	ObjectKeys extends keyof Theme = never,
 >(
 	theme: Theme,
 	{
 		spacingName = "spacing" as SpacingKey,
-	}: Config<Theme, SpacingKey, ObjectKeys> = {},
+		breakpointsName = "breakpoints" as BreakpointsKey,
+	}: Config<Theme, SpacingKey, BreakpointsKey, ObjectKeys> = {},
 ) =>
 	Object.fromEntries(
-		(Object.keys(theme) as (keyof Theme)[]).map((key) => [
-			key,
-			key === spacingName
-				? (...args: SpacingArgs<keyof Theme[SpacingKey]>) =>
-						({ theme }: { theme: Theme }) =>
-							args.map((level) => theme[key as SpacingKey][level]).join(" ")
-				: (path: string) =>
-						({ theme }: { theme: Theme }): unknown =>
-							typeof theme[key] === "object"
-								? get(theme[key], path)
-								: theme[key],
-		]),
-	) as Helpers<Theme, SpacingKey, ObjectKeys>;
+		(Object.keys(theme) as (keyof Theme)[])
+			.map((key) => [
+				key,
+				key === spacingName
+					? (...args: SpacingArgs<keyof Theme[SpacingKey]>) =>
+							({ theme }: { theme: Theme }) =>
+								args.map((level) => theme[key as SpacingKey][level]).join(" ")
+					: (path: string) =>
+							({ theme }: { theme: Theme }): unknown =>
+								typeof theme[key] === "object"
+									? get(theme[key], path)
+									: theme[key],
+			])
+			.concat(
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- it's fine, in practice this is handled by typecast below
+				breakpointsName in theme
+					? ([
+							[
+								"mediaQuery",
+								constructMediaQuery<
+									BreakpointsKey,
+									Theme & Record<BreakpointsKey, Record<string, string>>
+								>(breakpointsName),
+							],
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any -- a bit too hard to type this
+					  ] as any)
+					: [],
+			),
+	) as Helpers<Theme, SpacingKey, BreakpointsKey, ObjectKeys>;
