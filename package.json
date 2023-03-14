@@ -36,7 +36,7 @@
     "@types/styled-components": "^5.1.26",
     "jest-styled-components": "^7.1.1",
     "lodash-es": "^4.17.21",
-    "styled-components": "^5.3.8"
+    "styled-components": "^5.3.9"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",
