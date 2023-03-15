@@ -32,7 +32,7 @@
   },
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@types/lodash-es": "^4.17.6",
+    "@types/lodash-es": "^4.17.7",
     "@types/styled-components": "^5.1.26",
     "jest-styled-components": "^7.1.1",
     "lodash-es": "^4.17.21",
