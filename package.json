@@ -1,6 +1,6 @@
 {
   "name": "@lokalise/styled",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "scripts": {
     "build": "vite build",
     "lint:eslint": "eslint --cache . --ext .js,.cjs,.ts",

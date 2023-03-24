@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/lokalise/styled/compare/v1.2.0...v1.2.1) (2023-03-24)
+
+
+### Bug Fixes
+
+* support initially empty theme interface ([755348d](https://github.com/lokalise/styled/commit/755348da6a1c6e1fb586d2b099df6ae8471c7c08))
+
 ## [1.2.0](https://github.com/lokalise/styled/compare/v1.1.0...v1.2.0) (2023-03-08)
 
 
