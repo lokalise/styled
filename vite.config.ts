@@ -24,6 +24,9 @@ export default defineConfig({
 				// Ensures import/require works in all environments
 				interop: "auto",
 			},
+			onwarn(warning) {
+				throw Object.assign(new Error(), warning);
+			},
 		},
 		commonjsOptions: {
 			// Assumes all external dependencies are ESM dependencies. Just ensures
@@ -34,5 +37,16 @@ export default defineConfig({
 	test: {
 		globals: true,
 	},
-	plugins: [dts({ include: ["src"] })],
+	plugins: [
+		dts({
+			afterDiagnostic: (diagnosis) => {
+				if (diagnosis.length > 0) {
+					throw new Error("Issue while generating declaration files", {
+						cause: diagnosis,
+					});
+				}
+			},
+			include: ["src"],
+		}),
+	],
 });
