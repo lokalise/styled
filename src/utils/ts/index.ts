@@ -22,7 +22,9 @@ type ScalarPathsHelper<
 				: Paths;
 	  }[keyof O];
 
-export type ObjectPaths<O extends ObjectType> = ObjectPathsHelper<O, never, "">;
+export type ObjectPaths<O> = O extends ObjectType
+	? ObjectPathsHelper<O, never, "">
+	: never;
 
 type ObjectPathsHelper<
 	O extends ObjectType,
