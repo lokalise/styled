@@ -18,6 +18,12 @@ describe("ScalarPaths", () => {
 			ScalarPaths<{ a1: string; a2: { b: number; c: { s: string } }; a3: {} }>
 		>().toEqualTypeOf<"a1" | "a2.b" | "a2.c.s">();
 	});
+
+	it("should resolve numeric paths", () => {
+		expectTypeOf<ScalarPaths<{ 1: string; 2: number }>>().toEqualTypeOf<
+			1 | 2
+		>();
+	});
 });
 
 describe("ObjectPaths", () => {

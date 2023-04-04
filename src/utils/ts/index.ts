@@ -8,7 +8,7 @@ export type ScalarPaths<O extends ObjectType> = ScalarPathsHelper<O, never, "">;
 
 type ScalarPathsHelper<
 	O extends ObjectType,
-	Paths extends string,
+	Paths extends string | number,
 	Prefix extends string,
 > = EmptyObject extends O
 	? // In case object is empty, we just return currently accumulated paths
@@ -18,7 +18,11 @@ type ScalarPathsHelper<
 			[Key in keyof O]: O[Key] extends ObjectType
 				? ScalarPathsHelper<O[Key], Paths, `${Prefix}${Cast<Key>}.`>
 				: O[Key] extends CssValue
-				? Paths | `${Prefix}${Cast<Key>}`
+				? Key extends number
+					? "" extends Prefix
+						? Paths | Key
+						: Paths | `${Prefix}${Cast<Key>}`
+					: Paths | `${Prefix}${Cast<Key>}`
 				: Paths;
 	  }[keyof O];
 
