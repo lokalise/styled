@@ -1,3 +1,14 @@
+## [2.0.0](https://github.com/lokalise/styled/compare/v1.2.1...v2.0.0) (2023-04-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* `valueFromProp` is now generated from theme instead of being exported from index
+
+### Features
+
+* move `valueFromProp` to `generateHelpers` ([d758ec4](https://github.com/lokalise/styled/commit/d758ec49458760c182b2f588a284a3369090937e))
+
 ## [1.2.1](https://github.com/lokalise/styled/compare/v1.2.0...v1.2.1) (2023-03-24)
 
 
