@@ -1,7 +1,8 @@
 import { expectTypeOf } from "expect-type";
 
-import { type CssDeclaration } from "../types";
 import { css } from "..";
+import { type CssDeclaration } from "../types";
+
 import { variants } from "./variants";
 
 const primary = css`
@@ -103,6 +104,7 @@ describe("variants", () => {
 		expectTypeOf(variant)
 			.parameter(0)
 			.toEqualTypeOf<{ variant: "withProp"; color: string }>();
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-call -- no idea why this appeared
 		expectTypeOf(variant).returns.toEqualTypeOf<
 			CssDeclaration<{ variant: "withProp"; color: string }> | undefined
 		>();
@@ -119,6 +121,7 @@ describe("variants", () => {
 			text: string;
 			background: string;
 		}>();
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-call -- no idea why this appeared
 		expectTypeOf(variant).returns.toEqualTypeOf<
 			| CssDeclaration<{
 					variant: "withProp" | "withPropAndTheme";

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 import { expectTypeOf } from "expect-type";
 
-import type { ObjectPaths, ScalarPaths, ObjectPathValue } from ".";
+import { type ObjectPaths, type ScalarPaths, type ObjectPathValue } from ".";
 
 describe("ScalarPaths", () => {
 	it("should resolve to never when object is empty", () => {

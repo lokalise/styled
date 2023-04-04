@@ -1,6 +1,7 @@
 import get from "lodash-es/get";
-import { DefaultTheme } from "../types";
-import { ObjectPaths, ObjectPathValue } from "../utils/ts";
+
+import { type DefaultTheme } from "../types";
+import { type ObjectPaths, type ObjectPathValue } from "../utils/ts";
 
 type Fn<Props extends Record<string, unknown>> = (
 	props: { theme: DefaultTheme } & Props,

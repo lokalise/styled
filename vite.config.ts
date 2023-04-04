@@ -1,6 +1,8 @@
 import { resolve } from "path";
-import { defineConfig } from "vitest/config";
+
 import dts from "vite-plugin-dts";
+import { defineConfig } from "vitest/config";
+
 import packageJson from "./package.json";
 
 export default defineConfig({

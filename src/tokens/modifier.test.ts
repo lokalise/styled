@@ -1,6 +1,7 @@
 import { expectTypeOf } from "expect-type";
 
 import { css, type CssDeclaration } from "..";
+
 import { modifier } from "./modifier";
 
 const style = css`
