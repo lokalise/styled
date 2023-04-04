@@ -45,7 +45,7 @@ const {
 	{ objectKeys: ["typography"] },
 );
 
-const Comp = styled.div`
+const Description = styled.p`
 	${typography("default")};
 	color: ${color("background.primary")};
 	padding: ${spacing(1, 0)};
@@ -60,6 +60,65 @@ By default, exposed functions have typed inputs (path) that are constructed only
 example above, `color('background')` is not a valid path as it references object, not scalar (string) value.
 But in cases you want to enable paths for objects, for example for typography above, you need to provide
 `objectKeys` config value with relevant theme keys.
+
+#### Special helpers
+
+There are also some special helpers that are not generated based on theme, but are available in generated helpers.
+
+`breakpoints` (`breakpoints.min(breakpoint: string) => string` and `breakpoints.max(breakpoint: string) => string`)
+are helpers that allow you to reference breakpoints from theme with min / max syntax.
+
+```tsx
+const { breakpoints } = generateHelpers({
+	breakpoints: {
+		sm: "480px",
+		md: "920px",
+	},
+});
+
+const Tile = styled.article`
+	font-size: 10px;
+	${breakpoints.min("sm")} {
+		font-size: 12px;
+	}
+`;
+```
+
+`value` (`value(path: string) => string`)
+is a helper that allows you to reference any value from theme
+
+```tsx
+const { value } = generateHelpers(
+	{
+		typography: {
+			default: {
+				fontSize: "16px",
+				lineHeight: "20px",
+			},
+		},
+	},
+	{ objectKeys: ["typography"] },
+);
+
+const Section = styled.section`
+	padding: calc(${value("typography.default.lineHeight")} / 2);
+`;
+```
+
+`valueFromProp` (`valueFromProp(prop: string, path: string, fallback?: string) => string`)
+is a helper that allows you to reference any value from theme based on prop value
+
+```tsx
+const { valueFromProp } = generateHelpers({
+	color: { background: { primary: "gray", secondary: "black" } },
+});
+
+const Section = styled.section`
+	color: ${valueFromProp("textColor", "color.background")};
+	// Or, if you want, you can provide fallback value in which case prop is not required
+	color: ${valueFromProp("textColor", "color.background", "primary")};
+`;
+```
 
 ### modifier
 

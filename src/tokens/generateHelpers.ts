@@ -1,3 +1,4 @@
+import { type GetFieldType } from "lodash";
 import get from "lodash-es/get";
 
 import {
@@ -5,6 +6,33 @@ import {
 	type ObjectPathValue,
 	type ScalarPaths,
 } from "../utils/ts";
+
+type Fn<
+	Props extends Record<string, unknown>,
+	Theme extends Record<string | number, unknown>,
+> = (props: { theme: Theme } & Props) => string;
+
+interface ValueFromProp<Theme extends Record<string | number, unknown>> {
+	<
+		Path extends ObjectPaths<Theme>,
+		Prop extends string,
+		Keys = keyof ObjectPathValue<Theme, Path>,
+		Fallback = Keys,
+	>(
+		prop: Prop,
+		themePath: Path,
+		fallback: Fallback,
+	): Fn<Partial<Record<Prop, Keys>>, Theme>;
+
+	<
+		Path extends ObjectPaths<Theme>,
+		Prop extends string,
+		Keys = keyof ObjectPathValue<Theme, Path>,
+	>(
+		prop: Prop,
+		themePath: Path,
+	): Fn<Record<Prop, Keys>, Theme>;
+}
 
 type Config<
 	Theme extends Record<string | number, unknown>,
@@ -53,14 +81,10 @@ type Helpers<
 		? K extends ObjectKeys
 			? <Path extends ObjectPaths<Theme[K]>>(
 					path: Path,
-			  ) => (props: { theme: Theme }) => ObjectPathValue<Theme[K], Path>
+			  ) => (props: { theme: Theme }) => GetFieldType<Theme[K], Path>
 			: <Path extends ScalarPaths<Theme[K]>>(
 					path: Path,
-			  ) => (props: {
-					theme: Theme;
-					// The `Path extends string` is a trick to force compiler to defer execution of the condition.
-					// Otherwise, we get infinite depth issue.
-			  }) => Path extends string ? ObjectPathValue<Theme[K], Path> : never
+			  ) => (props: { theme: Theme }) => GetFieldType<Theme[K], Path>
 		: () => (props: { theme: Theme }) => Theme[K];
 } & (BreakpointsKey extends keyof Theme
 	? {
@@ -76,11 +100,8 @@ type Helpers<
 	: Record<string, never>) & {
 		value: <Path extends ScalarPaths<Theme>>(
 			path: Path,
-		) => (props: {
-			theme: Theme;
-			// The `Path extends string` is a trick to force compiler to defer execution of the condition.
-			// Otherwise, we get infinite depth issue.
-		}) => Path extends string ? ObjectPathValue<Theme, Path> : never;
+		) => (props: { theme: Theme }) => GetFieldType<Theme, Path>;
+		valueFromProp: ValueFromProp<Theme>;
 	};
 
 const constructMediaQuery = <
@@ -139,9 +160,9 @@ export const generateHelpers = <
 					? (...args: SpacingArgs<keyof Theme[SpacingKey]>) =>
 							({ theme }: { theme: Theme }) =>
 								args.map((level) => theme[key as SpacingKey][level]).join(" ")
-					: (path: string) =>
+					: (path?: string) =>
 							({ theme }: { theme: Theme }): unknown =>
-								typeof theme[key] === "object"
+								typeof path !== "undefined"
 									? get(theme[key], path)
 									: theme[key],
 			])
@@ -160,6 +181,7 @@ export const generateHelpers = <
 					  ] as any)
 					: [],
 			)
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- it's fine, in practice this is handled by typecast below
 			.concat([
 				[
 					"value",
@@ -167,5 +189,15 @@ export const generateHelpers = <
 						({ theme }: { theme: Theme }) =>
 							get(theme, path),
 				],
-			]),
+				[
+					"valueFromProp",
+					(prop: string, path: string, fallback?: string) =>
+						(props: Record<string, unknown>) =>
+							get(
+								props.theme,
+								`${path}.${(props[prop] ?? fallback) as string}`,
+							),
+				],
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any -- a bit too hard to type this
+			] as any),
 	) as Helpers<Theme, SpacingKey, BreakpointsKey, ObjectKeys>;

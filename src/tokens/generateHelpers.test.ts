@@ -9,6 +9,10 @@ const theme = {
 			secondary: "blue",
 		},
 	},
+	boxShadow: {
+		0: 0,
+		1: "4px",
+	},
 	spacing: {
 		0: 0,
 		1: "4px",
@@ -36,10 +40,12 @@ describe("generateHelpers", () => {
 
 		expect(Object.keys(helpers)).toEqual([
 			"colors",
+			"boxShadow",
 			"spacing",
 			"typography",
 			"transitionTime",
 			"value",
+			"valueFromProp",
 		]);
 	});
 
@@ -53,6 +59,15 @@ describe("generateHelpers", () => {
 		expectTypeOf(colors("surface")({ theme })).toBeString();
 		// @ts-expect-error -- this path doesn't exist
 		expectTypeOf(colors("this.does.not.exit")({ theme })).toBeString();
+	});
+
+	it("should number arguments", () => {
+		const { boxShadow } = generateHelpers(theme);
+
+		expect(boxShadow(1)({ theme })).toBe("4px");
+
+		// @ts-expect-error -- this is not a valid path
+		expectTypeOf(boxShadow(2)({ theme })).toBeString();
 	});
 
 	it("should create special spacing function", () => {
@@ -124,5 +139,48 @@ describe("generateHelpers", () => {
 
 		// @ts-expect-error -- should complain about invalid paths
 		expect(value("invalid.path")({ theme })).toBeUndefined();
+	});
+
+	describe("valueFromProp", () => {
+		const { valueFromProp } = generateHelpers(theme);
+
+		it("returns value with key from prop", () => {
+			expect(
+				valueFromProp(
+					"background",
+					"colors.surface",
+				)({ theme, background: "primary" }),
+			).toBe("red");
+		});
+
+		it("returns value with fallback", () => {
+			expect(
+				valueFromProp("background", "colors.surface", "primary")({ theme }),
+			).toBe("red");
+		});
+
+		it("requires prop to be provided when no fallback is provided", () => {
+			expect(
+				// @ts-expect-error -- Should complain that background wasn't provided
+				valueFromProp("background", "colors.surface")({ theme }),
+			).toBeUndefined();
+		});
+
+		it("complains when incorrect theme path is used", () => {
+			expect(
+				// @ts-expect-error -- Should complain when incorrect path was provided
+				valueFromProp("background", "incorrect")({ theme }),
+			).toBeUndefined();
+		});
+
+		it("complains when incorrect value is used", () => {
+			expect(
+				valueFromProp(
+					"background",
+					"colors.surface",
+					// @ts-expect-error -- Should complain when incorrect path was provided
+				)({ theme, background: "incorrect" }),
+			).toBeUndefined();
+		});
 	});
 });
