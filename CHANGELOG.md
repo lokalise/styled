@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/lokalise/styled/compare/v2.0.0...v2.0.1) (2023-04-05)
+
+
+### Bug Fixes
+
+* use future-proof import path ([0a4203e](https://github.com/lokalise/styled/commit/0a4203e281fa8b159100f114521a6ad3c6d8cc10))
+
 ## [2.0.0](https://github.com/lokalise/styled/compare/v1.2.1...v2.0.0) (2023-04-04)
 
 
