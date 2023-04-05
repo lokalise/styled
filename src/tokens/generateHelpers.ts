@@ -1,5 +1,5 @@
 import { type GetFieldType } from "lodash";
-import get from "lodash-es/get";
+import get from "lodash-es/get.js";
 
 import {
 	type ObjectPaths,
