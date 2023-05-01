@@ -51,7 +51,7 @@
     "@semantic-release/release-notes-generator": "^10.0.3",
     "expect-type": "^0.15.0",
     "husky": "^8.0.3",
-    "semantic-release": "^21.0.1",
+    "semantic-release": "^21.0.2",
     "typescript": "~5.0.4",
     "vite": "^4.3.3",
     "vite-plugin-dts": "^2.3.0",
