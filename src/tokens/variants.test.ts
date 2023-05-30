@@ -26,9 +26,9 @@ describe("variants", () => {
 		const variant = variants("variant", { primary, secondary });
 
 		expectTypeOf(variant)
-			.parameter(0)
+			.branded.parameter(0)
 			.toEqualTypeOf<{ variant: "primary" | "secondary" }>();
-		expectTypeOf(variant).returns.toEqualTypeOf<
+		expectTypeOf(variant).branded.returns.toEqualTypeOf<
 			CssDeclaration<{ variant: "primary" | "secondary" }> | undefined
 		>();
 
@@ -45,9 +45,9 @@ describe("variants", () => {
 		const variant = variants("variant", { primary, secondary }, "primary");
 
 		expectTypeOf(variant)
-			.parameter(0)
+			.branded.parameter(0)
 			.toEqualTypeOf<{ variant?: "primary" | "secondary" }>();
-		expectTypeOf(variant).returns.toEqualTypeOf<
+		expectTypeOf(variant).branded.returns.toEqualTypeOf<
 			CssDeclaration<{ variant?: "primary" | "secondary" }> | undefined
 		>();
 
@@ -66,9 +66,9 @@ describe("variants", () => {
 		const variant = variants("variant", { primary, secondary }, null);
 
 		expectTypeOf(variant)
-			.parameter(0)
+			.branded.parameter(0)
 			.toEqualTypeOf<{ variant?: "primary" | "secondary" }>();
-		expectTypeOf(variant).returns.toEqualTypeOf<
+		expectTypeOf(variant).branded.returns.toEqualTypeOf<
 			CssDeclaration<{ variant?: "primary" | "secondary" }> | undefined
 		>();
 
@@ -102,10 +102,10 @@ describe("variants", () => {
 		const variant = variants("variant", { withProp });
 
 		expectTypeOf(variant)
-			.parameter(0)
+			.branded.parameter(0)
 			.toEqualTypeOf<{ variant: "withProp"; color: string }>();
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-call -- no idea why this appeared
-		expectTypeOf(variant).returns.toEqualTypeOf<
+		expectTypeOf(variant).branded.returns.toEqualTypeOf<
 			CssDeclaration<{ variant: "withProp"; color: string }> | undefined
 		>();
 
@@ -115,14 +115,14 @@ describe("variants", () => {
 	it("allows css with multiple sets of props", () => {
 		const variant = variants("variant", { withProp, withPropAndTheme });
 
-		expectTypeOf(variant).parameter(0).toEqualTypeOf<{
+		expectTypeOf(variant).branded.parameter(0).toEqualTypeOf<{
 			variant: "withProp" | "withPropAndTheme";
 			color: string;
 			text: string;
 			background: string;
 		}>();
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-call -- no idea why this appeared
-		expectTypeOf(variant).returns.toEqualTypeOf<
+		expectTypeOf(variant).branded.returns.toEqualTypeOf<
 			| CssDeclaration<{
 					variant: "withProp" | "withPropAndTheme";
 					color: string;

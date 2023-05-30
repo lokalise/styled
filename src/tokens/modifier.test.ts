@@ -15,8 +15,8 @@ describe("modifier", () => {
 	it("has correct types for simple case", () => {
 		const mod = modifier("prop", style);
 
-		expectTypeOf(mod).parameter(0).toEqualTypeOf<{ prop?: boolean }>();
-		expectTypeOf(mod).returns.toEqualTypeOf<
+		expectTypeOf(mod).branded.parameter(0).toEqualTypeOf<{ prop?: boolean }>();
+		expectTypeOf(mod).branded.returns.toEqualTypeOf<
 			CssDeclaration<{ prop?: boolean }> | undefined
 		>();
 
@@ -28,9 +28,9 @@ describe("modifier", () => {
 		const mod = modifier("prop", withProp);
 
 		expectTypeOf(mod)
-			.parameter(0)
+			.branded.parameter(0)
 			.toEqualTypeOf<{ prop?: boolean; color: string }>();
-		expectTypeOf(mod).returns.toEqualTypeOf<
+		expectTypeOf(mod).branded.returns.toEqualTypeOf<
 			CssDeclaration<{ prop?: boolean; color: string }> | undefined
 		>();
 
@@ -41,8 +41,8 @@ describe("modifier", () => {
 	it("allows function as prop", () => {
 		const mod = modifier((props: { prop?: boolean }) => props.prop, style);
 
-		expectTypeOf(mod).parameter(0).toEqualTypeOf<{ prop?: boolean }>();
-		expectTypeOf(mod).returns.toEqualTypeOf<
+		expectTypeOf(mod).branded.parameter(0).toEqualTypeOf<{ prop?: boolean }>();
+		expectTypeOf(mod).branded.returns.toEqualTypeOf<
 			CssDeclaration<{ prop?: boolean }> | undefined
 		>();
 
