@@ -39,7 +39,7 @@
     "styled-components": "^5.3.11"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.3",
+    "@commitlint/cli": "^17.6.5",
     "@commitlint/config-conventional": "^17.6.3",
     "@commitlint/prompt-cli": "^17.6.5",
     "@lokalise/eslint-config-frontend": "^1.2.1",
