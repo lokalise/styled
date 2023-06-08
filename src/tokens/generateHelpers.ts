@@ -12,7 +12,7 @@ type Fn<
 	Theme extends Record<string | number, unknown>,
 > = (props: { theme: Theme } & Props) => string;
 
-interface ValueFromProp<Theme extends Record<string | number, unknown>> {
+export interface ValueFromProp<Theme extends Record<string | number, unknown>> {
 	<
 		Path extends ObjectPaths<Theme>,
 		Prop extends string,
