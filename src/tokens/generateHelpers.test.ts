@@ -13,13 +13,7 @@ const theme = {
 		0: 0,
 		1: "4px",
 	},
-	spacing: {
-		0: 0,
-		1: "4px",
-		2: "8px",
-		3: "12px",
-		4: "16px",
-	},
+	spacing: [0, "4px", "8px", "12px", "16px"],
 	typography: {
 		heading: {
 			fontSize: "12px",
@@ -181,6 +175,13 @@ describe("generateHelpers", () => {
 					// @ts-expect-error -- Should complain when incorrect path was provided
 				)({ theme, background: "incorrect" }),
 			).toBeUndefined();
+		});
+
+		it("return value for array", () => {
+			expect(valueFromProp("spacing", "spacing", 0)({ theme })).toBe(0);
+			expect(
+				valueFromProp("spacing", "spacing", 0)({ theme, spacing: 1 }),
+			).toBe("4px");
 		});
 	});
 });

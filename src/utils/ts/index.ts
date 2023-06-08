@@ -3,6 +3,7 @@ type Cast<T> = (T & string) | (T & number);
 
 export type CssValue = string | number;
 export type ObjectType = Record<string | number, unknown>;
+export type ArrayType = readonly (string | number)[];
 
 export type ScalarPaths<O extends ObjectType> = ScalarPathsHelper<O, never, "">;
 
@@ -42,6 +43,12 @@ type ObjectPathsHelper<
 			[Key in keyof O]: O[Key] extends ObjectType
 				? ObjectPathsHelper<
 						O[Key],
+						Paths | `${Prefix}${Cast<Key>}`,
+						`${Prefix}${Cast<Key>}.`
+				  >
+				: O[Key] extends ArrayType
+				? ObjectPathsHelper<
+						Record<string, never>,
 						Paths | `${Prefix}${Cast<Key>}`,
 						`${Prefix}${Cast<Key>}.`
 				  >
