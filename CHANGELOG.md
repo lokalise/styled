@@ -1,3 +1,15 @@
+## [2.1.0](https://github.com/lokalise/styled/compare/v2.0.1...v2.1.0) (2023-06-08)
+
+
+### Features
+
+* adjust valueFromProp to handle array tokens ([7781bf6](https://github.com/lokalise/styled/commit/7781bf6fbe4f94cb74cdf802d13e5d4df283ab64))
+
+
+### Bug Fixes
+
+* export ValueFromProp type ([e14672d](https://github.com/lokalise/styled/commit/e14672d27325995223b06206143577d0859eee4c))
+
 ## [2.0.1](https://github.com/lokalise/styled/compare/v2.0.0...v2.0.1) (2023-04-05)
 
 
