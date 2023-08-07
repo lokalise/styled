@@ -8,6 +8,35 @@ updates:
     schedule:
       interval: "daily"
     open-pull-requests-limit: 10
+    groups:
+      dev-lint:
+        patterns:
+          - "eslint"
+          - "eslint-*"
+          - "prettier"
+          - "@lokalise/eslint-config-frontend"
+
+      testing:
+        patterns:
+          - "expect-type"
+      types:
+        patterns:
+          - "@types/*"
+      vite:
+        patterns:
+          - "vite"
+          - "vite-*"
+          - "@vitejs/*"
+          - "vitest"
+          - "@vitest/*"
+      commitlint:
+        patterns:
+          - "@commitlint/*"
+      semantic-release:
+        patterns:
+          - "semantic-release"
+          - "semantic-release-*"
+          - "@semantic-release/*"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
