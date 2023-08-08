@@ -1,6 +1,6 @@
 {
 	"name": "@lokalise/styled",
-	"version": "3.0.0-exp-styled-components-upgrade.1",
+	"version": "3.0.0-exp-styled-components-upgrade.2",
 	"scripts": {
 		"build": "vite build",
 		"lint:eslint": "eslint --cache .",
