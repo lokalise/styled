@@ -3,7 +3,7 @@
 	"version": "3.0.0-exp-styled-components-upgrade.1",
 	"scripts": {
 		"build": "vite build",
-		"lint:eslint": "eslint --cache . --ext .js,.cjs,.ts",
+		"lint:eslint": "eslint --cache .",
 		"lint:ts": "tsc --noEmit",
 		"lint:prettier": "prettier --check .",
 		"lint": "npm run lint:eslint && npm run lint:ts && npm run lint:prettier",
@@ -50,6 +50,7 @@
 		"@semantic-release/github": "^9.0.4",
 		"@semantic-release/npm": "^10.0.4",
 		"@semantic-release/release-notes-generator": "^11.0.4",
+		"@types/react": "^18.2.19",
 		"eslint": "^8.46.0",
 		"expect-type": "^0.16.0",
 		"husky": "^8.0.3",
