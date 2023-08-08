@@ -1,3 +1,14 @@
+## [3.0.0-exp-styled-components-upgrade.3](https://github.com/lokalise/styled/compare/v3.0.0-exp-styled-components-upgrade.2...v3.0.0-exp-styled-components-upgrade.3) (2023-08-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* Removed exports and styled-components v6 comes with its own changes
+
+### Features
+
+* support the new styled-components version ([df9fa66](https://github.com/lokalise/styled/commit/df9fa669d06fc4bdfa07dc565bb51ef88f55a09f))
+
 ## [3.0.0-exp-styled-components-upgrade.2](https://github.com/lokalise/styled/compare/v3.0.0-exp-styled-components-upgrade.1...v3.0.0-exp-styled-components-upgrade.2) (2023-08-08)
 
 
