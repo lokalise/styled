@@ -1,7 +1,6 @@
 import { expectTypeOf } from "expect-type";
 
-import { css } from "..";
-import { type StyleFunction } from "../types";
+import { css, type CssDeclaration } from "..";
 
 import { variants } from "./variants";
 
@@ -29,7 +28,7 @@ describe("variants", () => {
 			.branded.parameter(0)
 			.toEqualTypeOf<{ $variant: "primary" | "secondary" }>();
 		expectTypeOf(variant).branded.returns.toEqualTypeOf<
-			StyleFunction<{ $variant: "primary" | "secondary" }> | undefined
+			CssDeclaration<{ $variant: "primary" | "secondary" }>
 		>();
 
 		expect(variant({ $variant: "primary" })).toEqual(primary);
@@ -48,7 +47,7 @@ describe("variants", () => {
 			.branded.parameter(0)
 			.toEqualTypeOf<{ $variant?: "primary" | "secondary" }>();
 		expectTypeOf(variant).branded.returns.toEqualTypeOf<
-			StyleFunction<{ $variant?: "primary" | "secondary" }> | undefined
+			CssDeclaration<{ $variant?: "primary" | "secondary" }>
 		>();
 
 		expect(variant({ $variant: "primary" })).toEqual(primary);
@@ -69,7 +68,7 @@ describe("variants", () => {
 			.branded.parameter(0)
 			.toEqualTypeOf<{ $variant?: "primary" | "secondary" }>();
 		expectTypeOf(variant).branded.returns.toEqualTypeOf<
-			StyleFunction<{ $variant?: "primary" | "secondary" }> | undefined
+			CssDeclaration<{ $variant?: "primary" | "secondary" }>
 		>();
 
 		expect(variant({ $variant: "primary" })).toEqual(primary);
@@ -90,7 +89,7 @@ describe("variants", () => {
 			.parameter(0)
 			.toEqualTypeOf<{ $variant?: "primary" | "secondary" }>();
 		expectTypeOf(variant).returns.toEqualTypeOf<
-			StyleFunction<{ $variant?: "primary" | "secondary" }> | undefined
+			CssDeclaration<{ $variant?: "primary" | "secondary" }>
 		>();
 
 		expect(variant({ $variant: "primary" })).toEqual(primary);
@@ -106,7 +105,7 @@ describe("variants", () => {
 			.toEqualTypeOf<{ $variant: "withProp"; $color: string }>();
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-call -- no idea why this appeared
 		expectTypeOf(variant).branded.returns.toEqualTypeOf<
-			StyleFunction<{ $variant: "withProp"; $color: string }> | undefined
+			CssDeclaration<{ $variant: "withProp"; $color: string }>
 		>();
 
 		expect(variant({ $variant: "withProp", $color: "red" })).toEqual(withProp);
@@ -123,13 +122,12 @@ describe("variants", () => {
 		}>();
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-call -- no idea why this appeared
 		expectTypeOf(variant).branded.returns.toEqualTypeOf<
-			| StyleFunction<{
-					$variant: "withProp" | "withPropAndTheme";
-					$color: string;
-					$text: string;
-					$background: string;
-			  }>
-			| undefined
+			CssDeclaration<{
+				$variant: "withProp" | "withPropAndTheme";
+				$color: string;
+				$text: string;
+				$background: string;
+			}>
 		>();
 
 		expect(
