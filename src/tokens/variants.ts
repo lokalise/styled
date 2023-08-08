@@ -1,8 +1,8 @@
-import { type CssDeclaration } from "../types";
+import { type CssDeclaration, type StyleFunction } from "../types";
 
 type AnyProps = object;
 type VariantsMap<P extends AnyProps> = Record<string, CssDeclaration<P>>;
-type Return<Props extends AnyProps> = (props: Props) => CssDeclaration<Props>;
+type Return<Props extends AnyProps> = StyleFunction<Props>;
 type Callback<Variants extends VariantsMap<Props>, Props extends AnyProps> = (
 	props: Props,
 ) => keyof Variants | undefined;
