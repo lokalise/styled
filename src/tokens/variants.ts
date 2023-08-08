@@ -2,9 +2,7 @@ import { type CssDeclaration } from "../types";
 
 type AnyProps = object;
 type VariantsMap<P extends AnyProps> = Record<string, CssDeclaration<P>>;
-type Return<Props extends AnyProps> = (
-	props: Props,
-) => CssDeclaration<Props> | undefined;
+type Return<Props extends AnyProps> = (props: Props) => CssDeclaration<Props>;
 type Callback<Variants extends VariantsMap<Props>, Props extends AnyProps> = (
 	props: Props,
 ) => keyof Variants | undefined;

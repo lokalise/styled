@@ -12,11 +12,11 @@ interface Modifier {
 		trueCss: CssDeclaration<CssProps>,
 	): <Props extends Partial<Record<Prop, boolean | undefined>> & CssProps>(
 		props: Props,
-	) => CssDeclaration<Props> | undefined;
+	) => CssDeclaration<Props>;
 	<Props extends AnyProps, CssProps extends AnyProps>(
 		prop: PropsCallback<Props>,
 		trueCss: CssDeclaration<CssProps>,
-	): (props: Props & CssProps) => CssDeclaration<Props & CssProps> | undefined;
+	): (props: Props & CssProps) => CssDeclaration<Props & CssProps>;
 }
 
 // These types are irrelevant. The real types are defined by the interface above. We just need
