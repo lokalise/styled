@@ -1,7 +1,5 @@
-import {
-	type FlattenInterpolation,
-	type ThemedStyledProps,
-} from "styled-components";
+import { type RuleSet } from "styled-components";
+import { type StyleFunction } from "styled-components/dist/types";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface -- To be overwritten by importing libraries
 export interface DefaultTheme {}
@@ -11,9 +9,9 @@ export interface DefaultTheme {}
 type MyDefaultTheme = DefaultTheme;
 
 // Doesn't work with Record<string, unknown>
-export type CssDeclaration<P extends object> = FlattenInterpolation<
-	ThemedStyledProps<P, DefaultTheme>
->;
+export type CssDeclaration<P extends object> = RuleSet<P>;
+
+export type { StyleFunction };
 
 declare module "styled-components" {
 	interface DefaultTheme extends MyDefaultTheme {
