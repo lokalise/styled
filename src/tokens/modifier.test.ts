@@ -1,6 +1,7 @@
 import { expectTypeOf } from "expect-type";
 
-import { css, type CssDeclaration } from "..";
+import { css } from "..";
+import { type StyleFunction } from "../types";
 
 import { modifier } from "./modifier";
 
@@ -17,7 +18,7 @@ describe("modifier", () => {
 
 		expectTypeOf(mod).branded.parameter(0).toEqualTypeOf<{ $prop?: boolean }>();
 		expectTypeOf(mod).branded.returns.toEqualTypeOf<
-			CssDeclaration<{ $prop?: boolean }> | undefined
+			StyleFunction<{ $prop?: boolean }> | undefined
 		>();
 
 		expect(mod({ $prop: true })).toEqual(style);
@@ -32,7 +33,7 @@ describe("modifier", () => {
 			.toEqualTypeOf<{ $prop?: boolean; $color: string }>();
 
 		expectTypeOf(mod).branded.returns.toEqualTypeOf<
-			CssDeclaration<{ $prop?: boolean; $color: string }> | undefined
+			StyleFunction<{ $prop?: boolean; $color: string }> | undefined
 		>();
 
 		expect(mod({ $prop: true, $color: "" })).toEqual(withProp);
@@ -44,7 +45,7 @@ describe("modifier", () => {
 
 		expectTypeOf(mod).branded.parameter(0).toEqualTypeOf<{ $prop?: boolean }>();
 		expectTypeOf(mod).branded.returns.toEqualTypeOf<
-			CssDeclaration<{ $prop?: boolean }> | undefined
+			StyleFunction<{ $prop?: boolean }> | undefined
 		>();
 
 		expect(mod({ $prop: true })).toEqual(style);
