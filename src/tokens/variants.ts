@@ -1,10 +1,10 @@
-import { type CssDeclaration } from "../types";
+import { type CssDeclaration, type StyleFunction } from "../types";
 
 type AnyProps = object;
 type VariantsMap<P extends AnyProps> = Record<string, CssDeclaration<P>>;
 type Return<Props extends AnyProps> = (
 	props: Props,
-) => CssDeclaration<Props> | undefined;
+) => StyleFunction<Props> | undefined;
 type Callback<Variants extends VariantsMap<Props>, Props extends AnyProps> = (
 	props: Props,
 ) => keyof Variants | undefined;

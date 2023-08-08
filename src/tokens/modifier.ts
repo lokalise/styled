@@ -1,4 +1,4 @@
-import { type CssDeclaration } from "../types";
+import { type CssDeclaration, type StyleFunction } from "../types";
 
 // We can't use `Record` here since we can't use types with index signature.
 type AnyProps = object;
@@ -12,11 +12,11 @@ interface Modifier {
 		trueCss: CssDeclaration<CssProps>,
 	): <Props extends Partial<Record<Prop, boolean | undefined>> & CssProps>(
 		props: Props,
-	) => CssDeclaration<Props> | undefined;
+	) => StyleFunction<Props> | undefined;
 	<Props extends AnyProps, CssProps extends AnyProps>(
 		prop: PropsCallback<Props>,
 		trueCss: CssDeclaration<CssProps>,
-	): (props: Props & CssProps) => CssDeclaration<Props & CssProps> | undefined;
+	): (props: Props & CssProps) => StyleFunction<Props & CssProps> | undefined;
 }
 
 // These types are irrelevant. The real types are defined by the interface above. We just need

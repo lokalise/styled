@@ -3,12 +3,14 @@ export {
 	css,
 	createGlobalStyle,
 	keyframes,
+	StyleSheetManager,
 	ThemeProvider,
-	type ThemedCssFunction,
-	type StyledProps,
-	type CSSObject,
-	type CSSProperties,
 } from "styled-components";
+
+/**
+ * @deprecated Use `csstype` package directly if you need this.
+ */
+export type { Properties as CSSProperties } from "csstype";
 
 export { useTheme } from "./hooks/useTheme";
 export * from "./tokens";
