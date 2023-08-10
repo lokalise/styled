@@ -1,3 +1,14 @@
+## [3.0.0](https://github.com/lokalise/styled/compare/v2.1.0...v3.0.0) (2023-08-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* Removed exports and styled-components v6 comes with its own changes
+
+### Features
+
+* support the new styled-components version ([2fb18f6](https://github.com/lokalise/styled/commit/2fb18f67a9ae171807e90aee7bbdcec96ba8de6e))
+
 ## [2.1.0](https://github.com/lokalise/styled/compare/v2.0.1...v2.1.0) (2023-06-08)
 
 ### Features
