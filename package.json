@@ -50,7 +50,7 @@
 		"@semantic-release/github": "^9.0.4",
 		"@semantic-release/npm": "^10.0.5",
 		"@semantic-release/release-notes-generator": "^11.0.4",
-		"@types/react": "^18.2.20",
+		"@types/react": "^18.2.21",
 		"eslint": "^8.47.0",
 		"expect-type": "^0.16.0",
 		"husky": "^8.0.3",
