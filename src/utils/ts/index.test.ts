@@ -68,6 +68,7 @@ describe("ObjectPathValue", () => {
 	});
 
 	it("should resolve arbitrary deep type", () => {
+		// eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- doesn't work with interfaces for some reason
 		type Obj = {
 			a: {
 				b: {

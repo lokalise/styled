@@ -34,12 +34,12 @@ export interface ValueFromProp<Theme extends Record<string | number, unknown>> {
 	): Fn<Record<Prop, Keys>, Theme>;
 }
 
-type Config<
+interface Config<
 	Theme extends Record<string | number, unknown>,
 	SpacingKey extends keyof Theme,
 	BreakpointsKey extends keyof Theme,
 	ObjectKeys extends keyof Theme,
-> = {
+> {
 	/**
 	 * These values should be handled as spacing values and allow helper to provide
 	 * multiple arguments.
@@ -57,7 +57,7 @@ type Config<
 	 * typography). This only affects typings, not output.
 	 */
 	objectKeys?: readonly ObjectKeys[];
-};
+}
 
 type SpacingArgs<Arg> =
 	| [Arg]
@@ -191,12 +191,20 @@ export const generateHelpers = <
 				],
 				[
 					"valueFromProp",
-					(prop: string, path: string, fallback?: string) =>
-						(props: Record<string, unknown>) =>
-							get(
-								props.theme,
-								`${path}.${(props[prop] ?? fallback) as string}`,
-							),
+					<TProp extends string, TPath extends string>(
+							prop: TProp,
+							path: TPath,
+							fallback?: string,
+						) =>
+						<
+							TProps extends { theme: Theme } & Record<
+								TProp,
+								boolean | undefined
+							>,
+						>(
+							props: TProps,
+						) =>
+							get(props.theme, `${path}.${props[prop] ?? fallback}`),
 				],
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any -- a bit too hard to type this
 			] as any),
