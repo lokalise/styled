@@ -19,12 +19,12 @@ type ScalarPathsHelper<
 			[Key in keyof O]: O[Key] extends ObjectType
 				? ScalarPathsHelper<O[Key], Paths, `${Prefix}${Cast<Key>}.`>
 				: O[Key] extends CssValue
-				? Key extends number
-					? "" extends Prefix
-						? Paths | Key
+				  ? Key extends number
+						? "" extends Prefix
+							? Paths | Key
+							: Paths | `${Prefix}${Cast<Key>}`
 						: Paths | `${Prefix}${Cast<Key>}`
-					: Paths | `${Prefix}${Cast<Key>}`
-				: Paths;
+				  : Paths;
 	  }[keyof O];
 
 export type ObjectPaths<O> = O extends ObjectType
@@ -47,12 +47,12 @@ type ObjectPathsHelper<
 						`${Prefix}${Cast<Key>}.`
 				  >
 				: O[Key] extends ArrayType
-				? ObjectPathsHelper<
-						Record<string, never>,
-						Paths | `${Prefix}${Cast<Key>}`,
-						`${Prefix}${Cast<Key>}.`
-				  >
-				: Paths;
+				  ? ObjectPathsHelper<
+							Record<string, never>,
+							Paths | `${Prefix}${Cast<Key>}`,
+							`${Prefix}${Cast<Key>}.`
+				    >
+				  : Paths;
 	  }[keyof O];
 
 export type ObjectPathValue<Obj, Path extends string> = ObjectPathValueHelper<
@@ -67,8 +67,8 @@ type ObjectPathValueHelper<Obj, Path extends string> = Obj extends Record<
 	? Path extends keyof Obj
 		? Obj[Path]
 		: Path extends `${infer Head}.${infer Rest}`
-		? Head extends keyof Obj
-			? ObjectPathValueHelper<Obj[Head], Rest>
-			: never
-		: never
+		  ? Head extends keyof Obj
+				? ObjectPathValueHelper<Obj[Head], Rest>
+				: never
+		  : never
 	: never;
