@@ -77,15 +77,15 @@ type Helpers<
 				...args: SpacingArgs<keyof Theme[SpacingKey]>
 		  ) => (props: { theme: Theme }) => string
 		: // Otherwise check if value is a record
-		Theme[K] extends Record<string | number, unknown>
-		? K extends ObjectKeys
-			? <Path extends ObjectPaths<Theme[K]>>(
-					path: Path,
-			  ) => (props: { theme: Theme }) => GetFieldType<Theme[K], Path>
-			: <Path extends ScalarPaths<Theme[K]>>(
-					path: Path,
-			  ) => (props: { theme: Theme }) => GetFieldType<Theme[K], Path>
-		: () => (props: { theme: Theme }) => Theme[K];
+		  Theme[K] extends Record<string | number, unknown>
+		  ? K extends ObjectKeys
+				? <Path extends ObjectPaths<Theme[K]>>(
+						path: Path,
+				  ) => (props: { theme: Theme }) => GetFieldType<Theme[K], Path>
+				: <Path extends ScalarPaths<Theme[K]>>(
+						path: Path,
+				  ) => (props: { theme: Theme }) => GetFieldType<Theme[K], Path>
+		  : () => (props: { theme: Theme }) => Theme[K];
 } & (BreakpointsKey extends keyof Theme
 	? {
 			mediaQuery: {
