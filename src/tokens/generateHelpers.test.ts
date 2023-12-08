@@ -1,5 +1,3 @@
-import { expectTypeOf } from "expect-type";
-
 import { generateHelpers } from "./generateHelpers";
 
 const theme = {

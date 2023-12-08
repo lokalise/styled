@@ -1,5 +1,3 @@
-import { expectTypeOf } from "expect-type";
-
 import { css } from "..";
 import { type StyleFunction } from "../types";
 
@@ -30,9 +28,9 @@ describe("variants", () => {
 		const variant = variants("$variant", { primary, secondary });
 
 		expectTypeOf(variant)
-			.branded.parameter(0)
+			.parameter(0)
 			.toMatchTypeOf<{ $variant: "primary" | "secondary" }>();
-		expectTypeOf(variant).branded.returns.toEqualTypeOf<
+		expectTypeOf(variant).returns.toMatchTypeOf<
 			VariantsReturn<{ $variant: "primary" | "secondary" }>
 		>();
 
@@ -49,9 +47,9 @@ describe("variants", () => {
 		const variant = variants("$variant", { primary, secondary }, "primary");
 
 		expectTypeOf(variant)
-			.branded.parameter(0)
+			.parameter(0)
 			.toMatchTypeOf<{ $variant?: "primary" | "secondary" }>();
-		expectTypeOf(variant).branded.returns.toEqualTypeOf<
+		expectTypeOf(variant).returns.toMatchTypeOf<
 			VariantsReturn<{ $variant?: "primary" | "secondary" }>
 		>();
 
@@ -70,9 +68,9 @@ describe("variants", () => {
 		const variant = variants("$variant", { primary, secondary }, null);
 
 		expectTypeOf(variant)
-			.branded.parameter(0)
+			.parameter(0)
 			.toMatchTypeOf<{ $variant?: "primary" | "secondary" }>();
-		expectTypeOf(variant).branded.returns.toEqualTypeOf<
+		expectTypeOf(variant).returns.toMatchTypeOf<
 			VariantsReturn<{ $variant?: "primary" | "secondary" }>
 		>();
 
@@ -106,10 +104,10 @@ describe("variants", () => {
 		const variant = variants("$variant", { withProp });
 
 		expectTypeOf(variant)
-			.branded.parameter(0)
+			.parameter(0)
 			.toMatchTypeOf<{ $variant: "withProp"; $color: string }>();
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-call -- no idea why this appeared
-		expectTypeOf(variant).branded.returns.toEqualTypeOf<
+		expectTypeOf(variant).returns.toMatchTypeOf<
 			VariantsReturn<{ $variant: "withProp"; $color: string }>
 		>();
 
@@ -121,14 +119,14 @@ describe("variants", () => {
 	it("allows css with multiple sets of props", () => {
 		const variant = variants("$variant", { withProp, withPropAndTheme });
 
-		expectTypeOf(variant).branded.parameter(0).toMatchTypeOf<{
+		expectTypeOf(variant).parameter(0).toMatchTypeOf<{
 			$variant: "withProp" | "withPropAndTheme";
 			$color: string;
 			$text: string;
 			$background: string;
 		}>();
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-call -- no idea why this appeared
-		expectTypeOf(variant).branded.returns.toEqualTypeOf<
+		expectTypeOf(variant).returns.toMatchTypeOf<
 			VariantsReturn<{
 				$variant: "withProp" | "withPropAndTheme";
 				$color: string;

@@ -1,5 +1,3 @@
-import { expectTypeOf } from "expect-type";
-
 import { css } from "..";
 import { type StyleFunction } from "../types";
 
@@ -20,9 +18,7 @@ describe("modifier", () => {
 	it("has correct types for simple case", () => {
 		const mod = modifier("$prop", style);
 
-		expectTypeOf(mod).branded.toEqualTypeOf<
-			StyleFunction<{ $prop?: boolean }>
-		>();
+		expectTypeOf(mod).toMatchTypeOf<StyleFunction<{ $prop?: boolean }>>();
 
 		expect(mod({ $prop: true, theme })).toEqual(style);
 		expect(mod({ theme })).toBeUndefined();
@@ -31,12 +27,13 @@ describe("modifier", () => {
 	it("infers css props", () => {
 		const mod = modifier("$prop", withProp);
 
-		expectTypeOf(mod).branded.parameter(0).toMatchTypeOf<{
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-call
+		expectTypeOf(mod).parameter(0).toMatchTypeOf<{
 			$prop?: boolean;
 			$color: string;
 		}>();
 
-		expectTypeOf(mod).branded.returns.toEqualTypeOf<
+		expectTypeOf(mod).returns.toMatchTypeOf<
 			ModifierReturn<{ $prop?: boolean; $color: string }>
 		>();
 
@@ -47,8 +44,8 @@ describe("modifier", () => {
 	it("allows function as prop", () => {
 		const mod = modifier((props: { $prop?: boolean }) => props.$prop, style);
 
-		expectTypeOf(mod).branded.parameter(0).toMatchTypeOf<{ $prop?: boolean }>();
-		expectTypeOf(mod).branded.returns.toEqualTypeOf<
+		expectTypeOf(mod).parameter(0).toMatchTypeOf<{ $prop?: boolean }>();
+		expectTypeOf(mod).returns.toMatchTypeOf<
 			ModifierReturn<{ $prop?: boolean }>
 		>();
 
