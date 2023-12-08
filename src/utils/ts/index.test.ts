@@ -1,7 +1,5 @@
 /* eslint-disable jest/expect-expect */
 /* eslint-disable @typescript-eslint/ban-types */
-import { expectTypeOf } from "expect-type";
-
 import { type ObjectPaths, type ScalarPaths, type ObjectPathValue } from ".";
 
 describe("ScalarPaths", () => {
