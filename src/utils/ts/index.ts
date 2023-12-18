@@ -13,19 +13,19 @@ type ScalarPathsHelper<
 	Prefix extends string,
 > = EmptyObject extends O
 	? // In case object is empty, we just return currently accumulated paths
-	  Paths
+		Paths
 	: // Otherwise, we recursively iterate
-	  {
+		{
 			[Key in keyof O]: O[Key] extends ObjectType
 				? ScalarPathsHelper<O[Key], Paths, `${Prefix}${Cast<Key>}.`>
 				: O[Key] extends CssValue
-				  ? Key extends number
+					? Key extends number
 						? "" extends Prefix
 							? Paths | Key
 							: Paths | `${Prefix}${Cast<Key>}`
 						: Paths | `${Prefix}${Cast<Key>}`
-				  : Paths;
-	  }[keyof O];
+					: Paths;
+		}[keyof O];
 
 export type ObjectPaths<O> = O extends ObjectType
 	? ObjectPathsHelper<O, never, "">
@@ -37,23 +37,23 @@ type ObjectPathsHelper<
 	Prefix extends string,
 > = EmptyObject extends O
 	? // In case object is empty, we just return currently accumulated paths
-	  Paths
+		Paths
 	: // Otherwise, we recursively iterate
-	  {
+		{
 			[Key in keyof O]: O[Key] extends ObjectType
 				? ObjectPathsHelper<
 						O[Key],
 						Paths | `${Prefix}${Cast<Key>}`,
 						`${Prefix}${Cast<Key>}.`
-				  >
+					>
 				: O[Key] extends ArrayType
-				  ? ObjectPathsHelper<
+					? ObjectPathsHelper<
 							Record<string, never>,
 							Paths | `${Prefix}${Cast<Key>}`,
 							`${Prefix}${Cast<Key>}.`
-				    >
-				  : Paths;
-	  }[keyof O];
+						>
+					: Paths;
+		}[keyof O];
 
 export type ObjectPathValue<Obj, Path extends string> = ObjectPathValueHelper<
 	Obj,
@@ -67,8 +67,8 @@ type ObjectPathValueHelper<Obj, Path extends string> = Obj extends Record<
 	? Path extends keyof Obj
 		? Obj[Path]
 		: Path extends `${infer Head}.${infer Rest}`
-		  ? Head extends keyof Obj
+			? Head extends keyof Obj
 				? ObjectPathValueHelper<Obj[Head], Rest>
 				: never
-		  : never
+			: never
 	: never;

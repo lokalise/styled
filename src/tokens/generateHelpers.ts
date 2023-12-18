@@ -73,19 +73,19 @@ type Helpers<
 > = {
 	[K in keyof Theme]: K extends SpacingKey
 		? // Spacing
-		  (
+			(
 				...args: SpacingArgs<keyof Theme[SpacingKey]>
-		  ) => (props: { theme: Theme }) => string
+			) => (props: { theme: Theme }) => string
 		: // Otherwise check if value is a record
-		  Theme[K] extends Record<string | number, unknown>
-		  ? K extends ObjectKeys
+			Theme[K] extends Record<string | number, unknown>
+			? K extends ObjectKeys
 				? <Path extends ObjectPaths<Theme[K]>>(
 						path: Path,
-				  ) => (props: { theme: Theme }) => GetFieldType<Theme[K], Path>
+					) => (props: { theme: Theme }) => GetFieldType<Theme[K], Path>
 				: <Path extends ScalarPaths<Theme[K]>>(
 						path: Path,
-				  ) => (props: { theme: Theme }) => GetFieldType<Theme[K], Path>
-		  : () => (props: { theme: Theme }) => Theme[K];
+					) => (props: { theme: Theme }) => GetFieldType<Theme[K], Path>
+			: () => (props: { theme: Theme }) => Theme[K];
 } & (BreakpointsKey extends keyof Theme
 	? {
 			mediaQuery: {
@@ -96,7 +96,7 @@ type Helpers<
 					size: keyof Theme[BreakpointsKey],
 				) => (props: { theme: Theme }) => string;
 			};
-	  }
+		}
 	: Record<string, never>) & {
 		value: <Path extends ScalarPaths<Theme>>(
 			path: Path,
@@ -178,7 +178,7 @@ export const generateHelpers = <
 								>(breakpointsName),
 							],
 							// eslint-disable-next-line @typescript-eslint/no-explicit-any -- a bit too hard to type this
-					  ] as any)
+						] as any)
 					: [],
 			)
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-argument -- it's fine, in practice this is handled by typecast below
