@@ -7,11 +7,8 @@ type Callback<Variants extends VariantsMap<Props>, Props extends AnyProps> = (
 	props: Props,
 ) => keyof Variants | undefined;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- to infer properly, we need the `any`
-type PropsFromVMap<VMap extends VariantsMap<any>> = VMap extends VariantsMap<
-	infer Props
->
-	? Props
-	: never;
+type PropsFromVMap<VMap extends VariantsMap<any>> =
+	VMap extends VariantsMap<infer Props> ? Props : never;
 
 /**
  * Reason we use interface this way is because we basically need to define
