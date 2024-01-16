@@ -60,15 +60,13 @@ export type ObjectPathValue<Obj, Path extends string> = ObjectPathValueHelper<
 	Path
 >;
 
-type ObjectPathValueHelper<Obj, Path extends string> = Obj extends Record<
-	string | number,
-	unknown
->
-	? Path extends keyof Obj
-		? Obj[Path]
-		: Path extends `${infer Head}.${infer Rest}`
-			? Head extends keyof Obj
-				? ObjectPathValueHelper<Obj[Head], Rest>
+type ObjectPathValueHelper<Obj, Path extends string> =
+	Obj extends Record<string | number, unknown>
+		? Path extends keyof Obj
+			? Obj[Path]
+			: Path extends `${infer Head}.${infer Rest}`
+				? Head extends keyof Obj
+					? ObjectPathValueHelper<Obj[Head], Rest>
+					: never
 				: never
-			: never
-	: never;
+		: never;
