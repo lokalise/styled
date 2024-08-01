@@ -1,6 +1,10 @@
 {
 	"name": "@lokalise/styled",
 	"version": "3.0.0",
+	"engines": {
+		"npm": ">=10",
+		"node": ">=20"
+	},
 	"scripts": {
 		"build": "vite build",
 		"lint:eslint": "eslint --cache .",
