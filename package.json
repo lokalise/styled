@@ -42,7 +42,7 @@
 		"styled-components": "^6.1.6"
 	},
 	"devDependencies": {
-		"@lokalise/eslint-config-frontend": "^4.3.2",
+		"@lokalise/eslint-config-frontend": "^4.6.1",
 		"@semantic-release/changelog": "^6.0.3",
 		"@semantic-release/commit-analyzer": "^13.0.0",
 		"@semantic-release/git": "^10.0.1",
@@ -52,9 +52,9 @@
 		"@types/lodash": "^4.14.202",
 		"@types/react": "^18.2.48",
 		"conventional-changelog-conventionalcommits": "^8.0.0",
-		"eslint": "^8.56.0",
+		"eslint": "^9.8.0",
 		"lodash": "^4.17.21",
-		"prettier": "^3.2.2",
+		"prettier": "^3.3.3",
 		"semantic-release": "^24.0.0",
 		"typescript": "~5.3.3",
 		"vite": "^5.3.0",
